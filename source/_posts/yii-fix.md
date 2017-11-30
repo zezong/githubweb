@@ -6,7 +6,7 @@ tags:
 
 ## yii 常见问题处理
 
-### post 请求接口时报404
+### 一：post 请求接口时报404
 这是由于YII处理post请求，是有一个CSRF验证
 
 #### 解决方法一：
@@ -30,4 +30,37 @@ $config = [
 // 在需要post的控制器中加配置
 
 public $enableCsrfValidation = false;
+```
+
+
+### 二：Api Base controller
+``` php
+<?php
+
+namespace app\controllers;
+
+use Yii;
+use yii\rest\Controller;
+use yii\helpers\Json;
+
+class ApiBaseController extends Controller
+{
+
+    // public $enableCsrfValidation = false;
+
+    public function behaviors()
+    {
+        return parent::behaviors();
+    }
+
+    public function actionList()
+    {
+        if (Yii::$app->request->post())
+        {
+                exit(Json::encode('sfsfs'));
+        }
+        var_dump(111111);
+    }
+
+}
 ```
